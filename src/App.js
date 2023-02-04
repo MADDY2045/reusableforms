@@ -1,57 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Select from 'react-select';
-import AsyncSelect from 'react-select/async';
-import { response } from './mock/fakeData';
+import AddProductForm from './components/AddProductForm';
+import './App.css';
 
 const App = () => {
-  const [selectedValue, setSelectedOption] = useState('');
-  const [asyncData, setAsyncData] = useState([]);
-
-  const loadOptions = (inputValue) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(filter(inputValue));
-      }, 500);
-    });
-  };
-
-  function filter(inputValue) {
-    console.log('input value now::::', inputValue);
-    console.log('asyncData::::', asyncData);
-    return asyncData.filter((option) => {
-      return option.label.toLowerCase().includes(inputValue.toLowerCase());
-    });
-  }
-
-  useEffect(() => {
-    console.log('seleccted value:::', selectedValue);
-  }, [selectedValue]);
-
-  useEffect(() => {
-    const tempData = response.map((result) => {
-      return {
-        label: result.email,
-        value: result.email,
-      };
-    });
-    setAsyncData(tempData);
-  }, [selectedValue]);
-
   return (
-    <div className="container">
-      <Select
-        options={asyncData}
-        onChange={(selected) => setSelectedOption(selected)}
-        isClearable
-      />
-      <br />
-      <AsyncSelect
-        defaultOptions
-        cacheOptions
-        loadOptions={loadOptions}
-        isClearable
-        onChange={(opt) => console.log(opt)}
-      />
+    <div className="center card mt-5">
+      <h5 style={{ color: 'white', textAlign: 'center', margin: '16px' }}>
+        ACCURACY
+      </h5>
+      <AddProductForm />
     </div>
   );
 };

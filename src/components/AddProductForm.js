@@ -1,61 +1,65 @@
-import React, { useState } from 'react';
-import InputField from './InputField';
+import React, { useEffect, useState } from 'react';
+//import InputField from './InputField';
+import AsyncDebounce from './AsyncDebounce';
+import {} from '../mock/fakeData';
 
 const AddProductForm = () => {
-  const [inputValue, setInputValue] = useState({
+  const [name, setName] = useState(null);
+  const [price, setPrice] = useState(null);
+
+  // const textChange = (inputValue) => {
+  //   // whole object of selected option
+  //   console.log('input Value::::', inputValue);
+  //   setName({ name: inputValue.value, label: inputValue.label });
+  // };
+  const [formData, setFormData] = useState({
     item: { name: '' },
     product: { price: '' },
   });
 
-  const {
-    item: { name },
-    product: { price },
-  } = inputValue;
-
-  const handleChange = (e) => {
-    console.log(e.target);
-    const { name, value } = e.target;
-    const hierarchy = e.target.getAttribute('hierarchy');
-    console.log('name::', name, 'value:::', value, 'hierarchy::', hierarchy);
-    setInputValue((prev) => ({
-      ...prev,
-      [hierarchy]: { ...prev.hierarchy, [name]: value },
-    }));
+  const handleChange = (inputValue, { action }) => {
+    // // onBlur => setInputValue to last selected value
+    // if (action === 'input-blur') {
+    //   console.log('input-blur', inputValue);
+    // }
+    // console.log('input value changed', inputValue);
+    // // onInputChange => update inputValue
+    // if (action === 'set-value') {
+    //   console.log('input value changed', inputValue);
+    // }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValue);
+    console.log('submitting....', formData);
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <InputField
-        type="text"
-        value={name}
-        name="name"
-        placeholder="Product Name"
-        label="name"
-        hierarchy="item"
-        onChange={handleChange}
-      />
-      <InputField
-        type="number"
-        value={price}
-        placeholder="Add Price"
-        label="Price"
-        name="price"
-        hierarchy="product"
-        onChange={handleChange}
-      />
-      <button
-        className="btn btn-primary p-2 m-3"
-        type="submit"
-        color="primary"
-        style={{ width: '20vw' }}
-      >
-        ADD
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <AsyncDebounce
+          value={name}
+          placeholder={'Enter Name'}
+          handleChange={handleChange}
+          onChange={setName}
+        />
+        <AsyncDebounce
+          value={price}
+          placeholder={'Enter Price'}
+          handleChange={handleChange}
+          onChange={setPrice}
+        />
+        <div style={{ display: 'block', margin: 'auto', textAlign: 'center' }}>
+          <button
+            className="btn btn-success p-2 m-3"
+            type="submit"
+            style={{ width: '20vw' }}
+          >
+            APPLY FILTER
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
