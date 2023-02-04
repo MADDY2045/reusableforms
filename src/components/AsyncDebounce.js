@@ -6,7 +6,13 @@ import { loadOptions } from './Loadoptions';
 
 const increase = (numberOfRequests) => numberOfRequests + 1;
 
-const AsyncDebounce = ({ onChange, value, handleChange, placeholder }) => {
+const AsyncDebounce = ({
+  onChange,
+  value,
+  handleChange,
+  placeholder,
+  menuPlacement = 'bottom',
+}) => {
   const [numberOfRequests, setNumberOfRequests] = useState(0);
 
   const wrappedLoadOptions = useCallback((...args) => {
@@ -93,6 +99,7 @@ const AsyncDebounce = ({ onChange, value, handleChange, placeholder }) => {
         value={value}
         loadOptions={wrappedLoadOptions}
         onChange={onChange}
+        menuPlacement={menuPlacement}
         isClearable
         placeholder={placeholder}
         onInputChange={handleChange}

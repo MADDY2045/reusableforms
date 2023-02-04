@@ -4,16 +4,33 @@ import AsyncDebounce from './AsyncDebounce';
 import {} from '../mock/fakeData';
 
 const AddProductForm = () => {
-  const [name, setName] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [itemName, setItemName] = useState(null);
-  const [itemGroup, setItemGroup] = useState(null);
+  const [itemGroupOne, setItemGroupOne] = useState({
+    item: { name: null, price: null },
+    product: {
+      itemName: null,
+      itemGroup: null,
+    },
+  });
 
-  // const textChange = (inputValue) => {
-  //   // whole object of selected option
-  //   console.log('input Value::::', inputValue);
-  //   setName({ name: inputValue.value, label: inputValue.label });
-  // };
+  const {
+    item: { name, price },
+    product: { itemName, itemGroup },
+  } = itemGroupOne;
+
+  const textChange = (inputValue, hierarchy, name) => {
+    let tempObj = itemGroupOne;
+    // whole object of selected option
+    if (inputValue == null) {
+      tempObj[hierarchy][name] = null;
+      setItemGroupOne({ ...tempObj });
+      return;
+    }
+    tempObj[hierarchy][name] = {
+      value: inputValue.value,
+      label: inputValue.label,
+    };
+    setItemGroupOne({ ...tempObj });
+  };
   const [formData, setFormData] = useState({
     item: { name: '' },
     product: { price: '' },
@@ -33,7 +50,16 @@ const AddProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitting....', formData);
+    console.log('submitting....', itemGroupOne);
+    //setTimeout(() => {
+    setItemGroupOne({
+      item: { name: null, price: null },
+      product: {
+        itemName: null,
+        itemGroup: null,
+      },
+    });
+    //}, 2000);
   };
 
   return (
@@ -41,19 +67,19 @@ const AddProductForm = () => {
       <form>
         <div>
           <h6 style={{ color: 'white', textAlign: 'center', margin: '16px' }}>
-            ACCURACY
+            PRODUCT GROUP
           </h6>
           <AsyncDebounce
             value={name}
             placeholder={'Enter Name'}
             handleChange={handleChange}
-            onChange={setName}
+            onChange={(e) => textChange(e, 'item', 'name')}
           />
           <AsyncDebounce
             value={price}
             placeholder={'Enter Price'}
             handleChange={handleChange}
-            onChange={setPrice}
+            onChange={(e) => textChange(e, 'item', 'price')}
           />
         </div>
 
@@ -65,13 +91,14 @@ const AddProductForm = () => {
             value={itemName}
             placeholder={'Enter item name'}
             handleChange={handleChange}
-            onChange={setItemName}
+            onChange={(e) => textChange(e, 'product', 'itemName')}
           />
           <AsyncDebounce
             value={itemGroup}
             placeholder={'Enter item group'}
             handleChange={handleChange}
-            onChange={setItemGroup}
+            onChange={(e) => textChange(e, 'product', 'itemGroup')}
+            menuPlacement="top"
           />
         </div>
 
