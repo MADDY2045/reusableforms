@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AsyncDebounce from './AsyncDebounce';
-import {} from '../mock/fakeData';
 
 const AddProductForm = () => {
   const [itemGroupOne, setItemGroupOne] = useState({
