@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-//import InputField from './InputField';
+import React, { useState } from 'react';
 import AsyncDebounce from './AsyncDebounce';
 import {} from '../mock/fakeData';
 
@@ -31,18 +30,8 @@ const AddProductForm = () => {
     };
     setItemGroupOne({ ...tempObj });
   };
-  const [formData, setFormData] = useState({
-    item: { name: '' },
-    product: { price: '' },
-  });
 
   const handleChange = (inputValue, { action }) => {
-    // // onBlur => setInputValue to last selected value
-    // if (action === 'input-blur') {
-    //   console.log('input-blur', inputValue);
-    // }
-    // console.log('input value changed', inputValue);
-    // // onInputChange => update inputValue
     if (action === 'set-value') {
       console.log('input value changed', inputValue);
     }
@@ -51,7 +40,6 @@ const AddProductForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('submitting....', itemGroupOne);
-    //setTimeout(() => {
     setItemGroupOne({
       item: { name: null, price: null },
       product: {
@@ -59,7 +47,6 @@ const AddProductForm = () => {
         itemGroup: null,
       },
     });
-    //}, 2000);
   };
 
   return (
@@ -74,12 +61,14 @@ const AddProductForm = () => {
             placeholder={'Enter Name'}
             handleChange={handleChange}
             onChange={(e) => textChange(e, 'item', 'name')}
+            requestName="name"
           />
           <AsyncDebounce
             value={price}
             placeholder={'Enter Price'}
             handleChange={handleChange}
             onChange={(e) => textChange(e, 'item', 'price')}
+            requestName="price"
           />
         </div>
 
@@ -92,6 +81,7 @@ const AddProductForm = () => {
             placeholder={'Enter item name'}
             handleChange={handleChange}
             onChange={(e) => textChange(e, 'product', 'itemName')}
+            requestName="itemName"
           />
           <AsyncDebounce
             value={itemGroup}
@@ -99,6 +89,7 @@ const AddProductForm = () => {
             handleChange={handleChange}
             onChange={(e) => textChange(e, 'product', 'itemGroup')}
             menuPlacement="top"
+            requestName="itemGroup"
           />
         </div>
 

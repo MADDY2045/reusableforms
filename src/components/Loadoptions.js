@@ -1,28 +1,13 @@
-import { response } from '../mock/fakeData';
-const options = [];
+import {
+  sleep,
+  getRequestApiData,
+  loadPayload,
+} from '../utils/loadOptionUtils';
 
-// for (let i = 0; i < 50; ++i) {
-//   options.push({
-//     value: i + 1,
-//     label: `Option ${i + 1}`,
-//   });
-// }
-
-response.map((option) => {
-  options.push({
-    value: option.email,
-    label: option.email,
-  });
-});
-
-const sleep = (ms) =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(undefined);
-    }, ms);
-  });
-
-export const loadOptions = async (search, prevOptions) => {
+export const loadOptions = async (search, prevOptions, option) => {
+  const options = [];
+  const tempOptions = await getRequestApiData(option);
+  loadPayload(options, option, tempOptions);
   await sleep(300); //wait time to load the dropdown data
 
   let filteredOptions;

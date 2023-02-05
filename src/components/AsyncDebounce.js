@@ -11,6 +11,7 @@ const AsyncDebounce = ({
   value,
   handleChange,
   placeholder,
+  requestName,
   menuPlacement = 'bottom',
 }) => {
   const [numberOfRequests, setNumberOfRequests] = useState(0);
@@ -97,7 +98,7 @@ const AsyncDebounce = ({
         styles={colourStyles}
         debounceTimeout={500}
         value={value}
-        loadOptions={wrappedLoadOptions}
+        loadOptions={(e, opt) => wrappedLoadOptions(e, opt, requestName)}
         onChange={onChange}
         menuPlacement={menuPlacement}
         isClearable
