@@ -1,8 +1,7 @@
 import { useCallback, useState } from 'react';
-
 import { AsyncPaginate } from 'react-select-async-paginate';
-
 import { loadOptions } from './Loadoptions';
+import { colourStyles } from '../utils/dropdownStyle';
 
 const increase = (numberOfRequests) => numberOfRequests + 1;
 
@@ -14,6 +13,7 @@ const AsyncDebounce = ({
   requestName,
   menuPlacement = 'bottom',
 }) => {
+  // eslint-disable-next-line
   const [numberOfRequests, setNumberOfRequests] = useState(0);
 
   const wrappedLoadOptions = useCallback((...args) => {
@@ -21,72 +21,6 @@ const AsyncDebounce = ({
 
     return loadOptions(...args);
   }, []);
-
-  const colourStyles = {
-    loadingIndicator: (defaultStyles) => {
-      return {
-        ...defaultStyles,
-        color: 'white',
-        position: 'fixed',
-      };
-    },
-    input: (defaultStyles) => {
-      return {
-        ...defaultStyles,
-        color: 'white',
-      };
-    },
-    clearIndicator: (defaultStyles) => {
-      return {
-        ...defaultStyles,
-        color: '#141449',
-        cursor: 'pointer',
-      };
-    },
-    singleValue: (provided) => {
-      return {
-        ...provided,
-        color: 'white',
-      };
-    },
-    placeholder: (defaultStyles) => {
-      return {
-        ...defaultStyles,
-        color: '#ffffff',
-      };
-    },
-    control: (styles) => {
-      return {
-        ...styles,
-        backgroundColor: '#6d7291',
-        color: 'white',
-      };
-    },
-    menuList: (provided, state) => {
-      return {
-        ...provided,
-        zIndex: 9999,
-        maxHeight: '20vh',
-      };
-    },
-    menu: (provided, state) => {
-      return {
-        ...provided,
-        // background: 'red',
-      };
-    },
-    option: (styles) => {
-      //const color = chroma(data.color);
-      //console.log('styles', styles);
-      return {
-        ...styles,
-        //color: 'red',
-        //border: '1px solid red',
-        fontWeight: 'bold',
-        fontFamily: 'italic',
-      };
-    },
-  };
 
   return (
     <div

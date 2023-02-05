@@ -26,7 +26,7 @@ export function loadPayload(options, option, tempOptions) {
   switch (option) {
     case 'name':
       tempOptions.products.map((option) => {
-        options.push({
+        return options.push({
           value: option.title,
           label: option.title,
         });
@@ -34,7 +34,7 @@ export function loadPayload(options, option, tempOptions) {
       break;
     case 'price':
       tempOptions.comments.map((option) => {
-        options.push({
+        return options.push({
           value: option.body,
           label: option.body,
         });
@@ -42,7 +42,7 @@ export function loadPayload(options, option, tempOptions) {
       break;
     case 'itemName':
       tempOptions.quotes.map((option) => {
-        options.push({
+        return options.push({
           value: option.author,
           label: option.author,
         });
@@ -50,7 +50,7 @@ export function loadPayload(options, option, tempOptions) {
       break;
     case 'itemGroup':
       tempOptions.todos.map((option) => {
-        options.push({
+        return options.push({
           value: option.userId + ' ' + option.todo,
           label: option.userId + ' ' + option.todo,
         });
