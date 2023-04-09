@@ -11,6 +11,7 @@ export const largeData = new Array(100000).fill().map((value, index) => ({
   value: faker.internet.userName(),
 }));
 
+//loader
 export const loadOptions = async (search, prevOptions, option) => {
   const options = [];
   //const tempOptions = await getRequestApiData(option);
