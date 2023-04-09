@@ -25,34 +25,34 @@ export async function getRequestApiData(option) {
 export function loadPayload(options, option, tempOptions) {
   switch (option) {
     case 'name':
-      tempOptions.products.map((option) => {
+      tempOptions.map((option) => {
         return options.push({
-          value: option.title,
-          label: option.title,
+          value: option.value,
+          label: option.value,
         });
       });
       break;
     case 'price':
-      tempOptions.comments.map((option) => {
+      tempOptions.map((option) => {
         return options.push({
-          value: option.body,
-          label: option.body,
+          value: option.value,
+          label: option.value,
         });
       });
       break;
     case 'itemName':
-      tempOptions.quotes.map((option) => {
+      tempOptions.map((option) => {
         return options.push({
-          value: option.author,
-          label: option.author,
+          value: option.value,
+          label: option.value,
         });
       });
       break;
     case 'itemGroup':
-      tempOptions.todos.map((option) => {
+      tempOptions.map((option) => {
         return options.push({
-          value: option.userId + ' ' + option.todo,
-          label: option.userId + ' ' + option.todo,
+          value: option.value,
+          label: option.value,
         });
       });
       break;

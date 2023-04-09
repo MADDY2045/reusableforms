@@ -3,10 +3,18 @@ import {
   getRequestApiData,
   loadPayload,
 } from '../utils/loadOptionUtils';
+import { faker } from '@faker-js/faker';
+
+export const largeData = new Array(100000).fill().map((value, index) => ({
+  id: index,
+  label: faker.internet.userName(),
+  value: faker.internet.userName(),
+}));
 
 export const loadOptions = async (search, prevOptions, option) => {
   const options = [];
-  const tempOptions = await getRequestApiData(option);
+  //const tempOptions = await getRequestApiData(option);
+  const tempOptions = largeData;
   loadPayload(options, option, tempOptions);
   await sleep(300); //wait time to load the dropdown data
 
